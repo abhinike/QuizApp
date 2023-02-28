@@ -3,7 +3,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/Pages/home_fragment.dart';
 import 'package:quizapp/Pages/quiz_screen.dart';
+import 'package:quizapp/Pages/statistics.dart';
 
 import '../utils/colors.dart';
 import 'components/bar_chart.dart';
@@ -20,10 +22,9 @@ class _HomeState extends State<Home> {
   int _currentindex = 0;
 
   final screens = [
-  Center(child:Text( 'Home' ,style: TextStyle(fontSize: 60) ) ) ,
+    HomeFragment(),
     QuizScreen(),
-  Center(child:Text( "Statistics" ,style: TextStyle(fontSize: 60) ) ) ,
-  // Center(child:Text( Home ,style: TextStyle(fontSize: 60) ) ) ,
+    StatScreen()  // Center(child:Text( Home ,style: TextStyle(fontSize: 60) ) ) ,
 
 
   ];

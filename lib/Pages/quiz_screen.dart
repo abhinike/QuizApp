@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quizapp/Pages/components/optionButton.dart';
 
 import '../utils/colors.dart';
-// import 'package:percent_indicator/percent_indicator.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 class QuizScreen extends StatefulWidget {
   const QuizScreen({Key? key}) : super(key: key);
 
@@ -38,6 +38,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
         body: ListView(
           children: [
+            SizedBox(height: 20,),
             Center(
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -46,9 +47,12 @@ class _QuizScreenState extends State<QuizScreen> {
                 margin: EdgeInsets.all(16),
                 child: Column(
                   children : [
-                    // LinearPercentIndicator(
-                    //         lineHeight: 20,
-                    // ),
+                    LinearPercentIndicator(
+                            lineHeight: 20,
+                            percent: 0.4,
+                      backgroundColor: R.bg.withOpacity(0.4),
+                      progressColor: R.primary,
+                    ),
 
                     Container(
                       width: double.infinity,
