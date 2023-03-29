@@ -1,32 +1,62 @@
-import 'Results.dart';
-
 class QuizData {
-  QuizData({
-      required this.responseCode,
-      required this.results,});
+  int? responseCode;
+  List<Results>? results;
 
-  // factory QuizData.fromJson(dynamic json) {
-  //   this.responseCode = json['response_code'];
-  //   if (json['results'] != null) {
-  //     results = [];
-  //     json['results'].forEach((v) {
-  //       results.add(Results.fromJson(v));
-  //     });
-  //   }
-  //   return results;
-  // }
+  QuizData({this.responseCode, this.results});
 
-
-  int responseCode;
-  List<Results> results;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['response_code'] = responseCode;
-    if (results != null) {
-      map['results'] = results.map((v) => v.toJson()).toList();
+  QuizData.fromJson(Map<String, dynamic> json) {
+    responseCode = json['response_code'];
+    if (json['results'] != null) {
+      results = <Results>[];
+      json['results'].forEach((v) {
+        results!.add(new Results.fromJson(v));
+      });
     }
-    return map;
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['response_code'] = this.responseCode;
+    if (this.results != null) {
+      data['results'] = this.results!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Results {
+  String? category;
+  String? type;
+  String? difficulty;
+  String? question;
+  String? correctAnswer;
+  List<String>? incorrectAnswers;
+
+  Results(
+      {this.category,
+        this.type,
+        this.difficulty,
+        this.question,
+        this.correctAnswer,
+        this.incorrectAnswers});
+
+  Results.fromJson(Map<String, dynamic> json) {
+    category = json['category'];
+    type = json['type'];
+    difficulty = json['difficulty'];
+    question = json['question'];
+    correctAnswer = json['correct_answer'];
+    incorrectAnswers = json['incorrect_answers'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['category'] = this.category;
+    data['type'] = this.type;
+    data['difficulty'] = this.difficulty;
+    data['question'] = this.question;
+    data['correct_answer'] = this.correctAnswer;
+    data['incorrect_answers'] = this.incorrectAnswers;
+    return data;
+  }
 }

@@ -1,7 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quizapp/Pages/components/optionButton.dart';
+import 'package:quizapp/Pages/components/quiz_card.dart';
+import 'package:quizapp/Provider/QuizQuesProvider.dart';
 
 import '../utils/colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -15,6 +18,8 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
+    int currentquestionindex = 0;
+
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -36,42 +41,46 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
         backgroundColor: R.bg,
 
-        body: ListView(
-          children: [
-            SizedBox(height: 20,),
-            Center(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                margin: EdgeInsets.all(16),
-                child: Column(
-                  children : [
-                    LinearPercentIndicator(
-                            lineHeight: 20,
-                            percent: 0.4,
-                      backgroundColor: R.bg.withOpacity(0.4),
-                      progressColor: R.primary,
+        body: Center(
+          child: Consumer<QuizQuesProvider>(builder: (context, value, _){
+            return Column(
+
+
+              children: [
+                Container(
+                  child: Card(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(value.quesitons[currentquestionindex].question!),
+                          OptionButton(text: value.options[currentquestionindex][0]!),
+                          OptionButton(text: value.options[currentquestionindex][1]!),
+                          OptionButton(text: value.options[currentquestionindex][2]!),
+                          OptionButton(text: value.options[currentquestionindex][3]!),
+
+
+                        ],
+                      ),
                     ),
-
-                    Container(
-                      width: double.infinity,
-                        margin: EdgeInsets.fromLTRB(22, 22, 22, 8),
-                        child: Text("Where is Cansat ? jlsfjasdlfjksd flsjfljsdfjss sdjflslfjl sdfjsjdlf sdf", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),)),
-                    SizedBox(height: 30,),
-                    OptionButton(text: "i dont know"),
-                    OptionButton(text: "i dont know"),
-                    OptionButton(text: "i dont know"),
-                    OptionButton(text: "i dont know"),
-                    SizedBox(height: 30,)
-                  ]
+                  ),
                 ),
-              ),
-            )
 
 
-
-          ],
+                ElevatedButton(onPressed: (){
+                  value.setUpQuiz();
+                }, child: const Text("Load Questions")),
+                ElevatedButton(onPressed: (){
+                  setState(() {
+                    currentquestionindex = currentquestionindex ++;
+                  });
+                },
+                    child:
+                Text("next Question")),
+              ],
+            );
+          }),
         ),
       ),
     );

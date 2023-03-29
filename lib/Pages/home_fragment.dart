@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/Services/quiz_service/QuizService.dart';
 
-import '../Model/quiz_question/Results.dart';
+import '../Model/quiz_question/QuizData.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({Key? key}) : super(key: key);
@@ -13,6 +13,8 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment> {
   @override
   Widget build(BuildContext context) {
+
+    String text = "hello";
     return Container(
       child: Center(
         child: Column(
@@ -24,8 +26,12 @@ class _HomeFragmentState extends State<HomeFragment> {
                   List<Results>? list = await service.getAllQuestions();
                   print(list?.length);
                   print(list![0].question);
+                  setState(() {
+                    text = list[0].question.toString();
+                  });
                 },
-                child: Text("api call"))
+                child: Text("api call")),
+            Text(text),
           ],
         ),
       ),
